@@ -1,0 +1,61 @@
+<div *ngIf="!regioni || !filterprov">
+  <app-spinner></app-spinner>
+</div>
+<div class="container-fluid pt-3">
+  <span *ngFor="let regione of filterreg;first as first">
+    <span *ngIf="first">
+      <h2 class="text-center">
+        <span class="verde">Situazione</span>
+        <span class="bianco"> in</span>&nbsp;
+        <span class="rosso uppercase">{{regione.denominazione_regione}}</span>
+      </h2>
+    </span>
+  </span>
+  <div class="row">
+    <div class="col-md-3 cont">
+      <app-last-data [titolo]='"Attuali positivi"' [dati]='regioni' [date]="date" [class]='"totalePositivi"'
+        [property]='"totale_positivi"'></app-last-data>
+    </div>
+    <div class="col-md-3 cont">
+      <app-last-data [titolo]='"Dimessi/Guariti"' [dati]='regioni' [date]="date" [class]='"guariti"' [property]='"dimessi_guariti"'>
+      </app-last-data>
+    </div>
+    <div class="col-md-3 cont">
+      <app-last-data [titolo]='"Deceduti"' [dati]='regioni' [date]="date" [class]='"deceduti"' [property]='"deceduti"'></app-last-data>
+    </div>
+    <div class="col-md-3 cont">
+      <app-last-data [titolo]='"Totale casi"' [dati]='regioni' [date]="date" [class]='"totaleCasi"' [property]='"totale_casi"'>
+      </app-last-data>
+    </div>
+  </div>
+</div>
+<div class="container-fluid pt-3 pb-3">
+  <div class="row">
+    <div class="col-md-6 ">
+      <div class="col-md-12 bg table-responsive">
+        <table class="table table-dark table-fixed">
+          <thead>
+            <tr>
+              <th class="col-4">Provincia</th>
+              <th class="col-4">Casi totali</th>
+              <th class="col-4">Incremento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let provincia of filterprov; index as i">
+              <td class="col-4">{{provincia.denominazione_provincia}}</td>
+              <td class="rosso col-4">{{provincia.totale_casi}}</td>
+              <td class="col-4">{{ provincia.totale_casi - filterprov2[i].totale_casi}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6 cont">
+      <app-tamponi [dati]="regioni" [date]="date"></app-tamponi>
+      <button class="btn btn-warning float-right">
+        <i class="fa fa-fast-backward" aria-hidden="true" (click)="goBack()"></i>&nbsp;Torna Indietro
+        </button>
+    </div>
+  </div>
+</div>

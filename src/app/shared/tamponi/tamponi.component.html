@@ -1,0 +1,14 @@
+<div class="col-md-12 bg" *ngIf="dati">
+  <div>
+    <p>Tamponi effettuati</p>
+    <p class="tamponi">
+      <span class="grigio">
+        {{totale}}
+      </span>
+    </p>
+  </div>
+  <div class="sub">
+    <p class="subtitolo">Incidenza dei positivi rispetto ai tamponi effettuati</p>
+    <p class="dato">{{incidenza | number: '1.1'}} %</p>
+  </div>
+</div>

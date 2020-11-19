@@ -1,0 +1,66 @@
+<div *ngIf="!filterprov">
+  <app-spinner></app-spinner>
+</div>
+<div class="container-fluid pt-3" *ngIf="filterprov">
+  <div class="row">
+    <div class="col-md-3 cont">
+      <app-last-data [titolo]='"Attuali positivi"' [dati]='dati' [date]='date' [class]='"totalePositivi"' [property]='"totale_positivi"'></app-last-data>
+    </div>
+    <div class="col-md-3 cont">
+      <app-last-data [titolo]='"Dimessi/Guariti"' [dati]='dati' [date]='date' [class]='"guariti"' [property]='"dimessi_guariti"'></app-last-data>
+    </div>
+    <div class="col-md-3 cont">
+      <app-last-data [titolo]='"Deceduti"' [dati]='dati' [date]='date' [class]='"deceduti"' [property]='"deceduti"'></app-last-data>
+    </div>
+    <div class="col-md-3 cont">
+      <app-last-data [titolo]='"Totale casi"' [dati]='dati' [date]='date' [class]='"totaleCasi"' [property]='"totale_casi"'></app-last-data>
+    </div>
+  </div>
+</div>
+<div class="container-fluid pt-3 pb-3" *ngIf="filterprov">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="col-md-12 bg">
+        <table class="table table-dark table-fixed">
+          <thead>
+            <tr>
+              <th class="col-3">Regione</th>
+              <th class="col-3">Casi totali</th>
+              <th class="col-3">Casi attuali</th>
+              <th class="col-3">Incremento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let regione of filterreg | sort: 'desc':'totale_casi'">
+              <td class="col-3"><a [routerLink]="['/regione/',regione.denominazione_regione]">{{regione.denominazione_regione}}</a></td>
+              <td class="rosso col-3">{{regione.totale_casi}}</td>
+              <td class="arancio col-3">{{regione.totale_positivi}}</td>
+              <td class="grigio col-3">{{regione.nuovi_positivi}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-4 ">
+      <div class="col-md-12 bg">
+        <table class="table table-dark table-fixed">
+          <thead>
+            <tr>
+              <th class="col-7">Provincia</th>
+              <th class="col-5">Casi totali</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let provincia of filterprov | sort: 'desc':'totale_casi' | filter">
+              <td class="col-7">{{provincia.denominazione_provincia}}</td>
+              <td class="rosso col-5">{{provincia.totale_casi}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-3 cont">
+      <app-tamponi [dati]="dati" [date]='date'></app-tamponi>
+    </div>
+  </div>
+</div>
