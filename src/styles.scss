@@ -1,1 +1,95 @@
+$bianco: white;
+$verde: green;
+$rosso: red;
+$arancio: rgb(255, 170, 0);
+$grigio: lightgray;
+$nero: #111111;
+
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: $nero;
+
+  .verde {
+    color: $verde;
+  }
+
+  .rosso {
+    color: $rosso;
+  }
+
+  .arancio {
+    color: $arancio;
+  }
+
+  .grigio {
+    color: $grigio;
+  }
+
+  .bianco {
+    color: $bianco;
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  .small {
+    font-size: .5em;
+  }
+
+  div.bg {
+    background-color: #343a40 !important;
+    padding: 10px;
+  }
+
+  div.sub {
+    background-color: $nero;
+    padding: 10px;
+    margin-bottom: 12px;
+    text-align: center;
+
+    p.subtitolo {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    p.dato {
+      font-size: 40px;
+      line-height: 1.1;
+    }
+  }
+
+  div.cont {
+    color: $grigio;
+  }
+
+  .table-fixed tbody {
+    height: 195px;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  .table-fixed thead,
+  .table-fixed tbody,
+  .table-fixed tr,
+  .table-fixed td,
+  .table-fixed th {
+    display: block;
+  }
+
+  .table-fixed tbody td,
+  .table-fixed tbody th,
+  .table-fixed thead>tr>th {
+    float: left;
+    position: relative;
+
+    &::after {
+      content: '';
+      clear: both;
+      display: block;
+    }
+  }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
