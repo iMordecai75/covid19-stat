@@ -10,7 +10,7 @@
         <div class="flex">
           <div class="flex-item">
             <div style="display: block;">
-              <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+              <canvas baseChart aspectRatio="2" [datasets]="lineChartData" [labels]="lineChartLabels"
                 [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
                 [plugins]="lineChartPlugins" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
             </div>
@@ -19,9 +19,9 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="col-md-12">
-        <button type="button" class="btn btn-light col-md-8 mb-3" (click)="getDati()">ITALIA</button>
-        <button type="button" class="btn btn-light col-md-8 mb-3" *ngFor="let item of regioni" (click)="getRegione(item)">{{item}}</button>
+      <div class="col-md-12 scroll">
+        <button type="button" class="btn btn-light col-md-5 mb-3 d-block ml-2 text-success" (click)="getDati()">ITALIA</button>
+        <button type="button" class="btn btn-light col-md-5 mb-3 ml-2" *ngFor="let item of regioni" (click)="getRegione(item)">{{item}}</button>
       </div>
     </div>
   </div>
