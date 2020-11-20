@@ -22,18 +22,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+import { ChartsComponent } from './components/charts/charts.component';
+import { ChartsModule } from 'ng2-charts';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -47,7 +38,8 @@ export const MY_FORMATS = {
     RegDetailComponent,
     FooterComponent,
     SpinnerComponent,
-    DatepickerComponent
+    DatepickerComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +50,9 @@ export const MY_FORMATS = {
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    FormsModule
+    FormsModule,
+    ChartsModule,
+    MatButtonModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

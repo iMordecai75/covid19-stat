@@ -9,6 +9,13 @@ $nero: #111111;
 body {
   background-color: $nero;
 
+  h2,
+  h3 {
+    width: 100%;
+    text-align: center;
+    color: $grigio;
+  }
+
   .verde {
     color: $verde;
   }
@@ -35,6 +42,10 @@ body {
 
   .small {
     font-size: .5em;
+  }
+
+  .fisso {
+    height: 306px;
   }
 
   div.bg {
@@ -64,7 +75,7 @@ body {
   }
 
   .table-fixed tbody {
-    height: 195px;
+    height: 200px;
     overflow-y: auto;
     width: 100%;
   }
@@ -89,7 +100,19 @@ body {
       display: block;
     }
   }
+
+  .table-fixed thead th,
+  .table-fixed tbody td {
+    height: 70px;
+  }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
