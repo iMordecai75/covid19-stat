@@ -96,8 +96,11 @@ export class ChartsComponent implements OnInit, OnChanges {
   public wait = true;
   public regioni: string[];
   public title: string;
+  public kind = true;
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+  dati: Dati[];
+  datireg: Regioni[];
 
   constructor(private datiService: DatiService) { }
 
@@ -109,9 +112,10 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   }
 
-  public getDati(): void {
+  private getDati(): void {
     this.datiService.getDati()
       .subscribe((res: Dati[]) => {
+        this.dati = res;
         const max = res.length;
         this.lineChartLabels = res.map(
           t => new Date(t.data).toLocaleDateString()
@@ -135,19 +139,47 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   private updateDataset(res: any): void {
     const max = res.length;
-    this.lineChartData[0].data = res.map(t => t.totale_positivi).filter((elem, index) => index > max - 30);
-    this.lineChartData[1].data = res.map(t => t.totale_casi).filter((elem, index) => index > max - 30);
-    this.lineChartData[2].data = res.map(t => t.dimessi_guariti).filter((elem, index) => index > max - 30);
+    if (this.kind) {
+      this.lineChartData[0].data = res.map(t => t.totale_positivi).filter((elem, index) => index > max - 30);
+      this.lineChartData[1].data = res.map(t => t.totale_casi).filter((elem, index) => index > max - 30);
+      this.lineChartData[2].data = res.map(t => t.dimessi_guariti).filter((elem, index) => index > max - 30);
+    } else {
+      this.lineChartData[0].data = res.map(t => t.variazione_totale_positivi).filter((elem, index) => index > max - 30);
+      this.lineChartData[1].data = res.map(t => t.nuovi_positivi).filter((elem, index) => index > max - 30);
+      this.lineChartData[2].data = res.map((t, i) => {
+        if (i === 0) {
+          return 0;
+        } else {
+          return t.dimessi_guariti - res[i - 1].dimessi_guariti;
+        }
+      }).filter((elem, index) => index > max - 30);
+    }
         // this.chart.update();
   }
 
+  public setKind(value): void {
+    this.kind = value;
+    this.getItalia();
+  }
+
+  public getItalia(): void {
+    this.updateDataset(this.dati);
+    this.title = 'Italia';
+  }
+
   public getRegione(id: string): void {
-    this.datiService.getAllDatiReg()
-      .subscribe((res: Regioni[]) => {
-        const reg: Regioni[] = res.filter(t => t.denominazione_regione === id);
-        this.updateDataset(reg);
-        this.title = id;
-      });
+    if (!this.datireg) {
+      this.datiService.getAllDatiReg()
+        .subscribe((res: Regioni[]) => {
+          const reg: Regioni[] = res.filter(t => t.denominazione_regione === id);
+          this.updateDataset(reg);
+          this.title = id;
+        });
+    } else {
+      const reg: Regioni[] = this.datireg.filter(t => t.denominazione_regione === id);
+      this.updateDataset(reg);
+      this.title = id;
+    }
   }
 
   // events

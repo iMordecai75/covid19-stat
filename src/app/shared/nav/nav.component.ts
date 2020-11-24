@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { Dati } from 'src/app/models/dati';
 import { DatiService } from 'src/app/services/dati.service';
 
@@ -10,6 +9,7 @@ import { DatiService } from 'src/app/services/dati.service';
 })
 export class NavComponent implements OnInit {
 
+  isCollapsed: any;
   date: Date;
 
   constructor(private service: DatiService) { }

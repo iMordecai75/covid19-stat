@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { ChartsComponent } from './components/charts/charts.component';
 import { ChartsModule } from 'ng2-charts';
 import { MatButtonModule } from '@angular/material/button';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatNativeDateModule,
     FormsModule,
     ChartsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgbModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

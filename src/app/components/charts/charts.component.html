@@ -19,8 +19,12 @@
       </div>
     </div>
     <div class="col-md-4">
+      <div class="btn-group col-md-6 mb-3" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary col-md-6" [disabled]="kind" (click)="setKind(true)">Totali</button>
+        <button type="button" class="btn btn-secondary col-md-6" [disabled]="!kind" (click)="setKind(false)">Incrementi</button>
+      </div>
       <div class="col-md-12 scroll">
-        <button type="button" class="btn btn-light col-md-5 mb-3 d-block ml-2 text-success" (click)="getDati()">ITALIA</button>
+        <button type="button" class="btn btn-light col-md-5 mb-3 d-block ml-2 text-success" (click)="getItalia()">ITALIA</button>
         <button type="button" class="btn btn-light col-md-5 mb-3 ml-2" *ngFor="let item of regioni" (click)="getRegione(item)">{{item}}</button>
       </div>
     </div>
