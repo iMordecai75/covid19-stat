@@ -34,8 +34,6 @@ body {
     }
   }
 
-
-
   .verde {
     color: $verde;
   }
@@ -151,6 +149,14 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  #main {
+    margin-top: 56px;
+
+    @media screen and (min-width: 992px){
+      margin-top: 94px;
+    }
+  }
 }
 
 /* Importing Bootstrap SCSS file. */

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Dati } from 'src/app/models/dati';
+import { AuthService } from 'src/app/services/auth.service';
 import { DatiService } from 'src/app/services/dati.service';
 
 @Component({
@@ -12,7 +13,10 @@ export class NavComponent implements OnInit {
   isCollapsed: any;
   date: Date;
 
-  constructor(private service: DatiService) { }
+  constructor(
+    private service: DatiService,
+    public auth: AuthService
+  ) { }
 
   getLatestData(): void {
     this.service.getLatestDati()

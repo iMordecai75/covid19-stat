@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  url: 'http://localhost:8888/angular/covid19/api/',
+  authurl: 'http://localhost:8888/angular/covid19/api/auth/'
 };
 
 /*
