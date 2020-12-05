@@ -4,8 +4,10 @@ import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { Dati } from '../models/dati';
 import { Province } from '../models/province';
 import { Regioni } from '../models/regioni';
+import { Annotations } from '../models/annotations';
 
-const API = 'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json';
+// const API = 'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json';
+const API = 'http://www.federicomasci.com/angular/covid19/api';
 
 
 @Injectable({
@@ -22,30 +24,34 @@ export class DatiService {
 
   // LETTURA DATI NAZIONALI
   getDati(): Observable<Dati[]> {
-    return this.http.get<Dati[]>(`${API}/dpc-covid19-ita-andamento-nazionale.json`);
+    return this.http.get<Dati[]>(`${API}/index.php`);
+  }
+
+  getAllDatiReg(): Observable<Regioni[]> {
+    return this.http.get<Regioni[]>(`${API}/regioni.php`);
+  }
+
+  getAllDatiProv(): Observable<Province[]> {
+    return this.http.get<Province[]>(`${API}/province.php`);
   }
 
   // LETTURA ULTIMI DATI NAZIONALI
   getLatestDati(): Observable<Dati[]> {
-    return this.http.get<Dati[]>(`${API}/dpc-covid19-ita-andamento-nazionale-latest.json`);
+    return this.http.get<Dati[]>(`${API}/index.php?task=latest`);
   }
 
   // LETTURA DATI REGIONALI
   getDatiReg(): Observable<Regioni[]> {
-    return this.http.get<Regioni[]>(`${API}/dpc-covid19-ita-regioni-latest.json`);
+    return this.http.get<Regioni[]>(`${API}/regioni.php?task=latest`);
   }
 
   // LETTURA DATI PROVINCIALI
   getDatiProv(): Observable<Province[]> {
-    return this.http.get<Province[]>(`${API}/dpc-covid19-ita-province-latest.json`);
+    return this.http.get<Province[]>(`${API}/province?task=latest`);
   }
 
-  getAllDatiReg(): Observable<Regioni[]> {
-    return this.http.get<Regioni[]>(`${API}/dpc-covid19-ita-regioni.json`);
-  }
-
-  getAllDatiProv(): Observable<Province[]> {
-    return this.http.get<Province[]>(`${API}/dpc-covid19-ita-province.json`);
+  getAnnotation(): Observable<Annotations[]> {
+    return this.http.get<Annotations[]>(`${API}/annotations.php`);
   }
 
   getDate(): Observable<Date> {

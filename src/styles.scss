@@ -4,6 +4,7 @@ $rosso: red;
 $arancio: rgb(255, 170, 0);
 $grigio: lightgray;
 $nero: #111111;
+$blu: dodgerblue;
 
 /* You can add global styles to this file, and also import other style files */
 body {
@@ -15,6 +16,25 @@ body {
     text-align: center;
     color: $grigio;
   }
+
+  a {
+    color: $grigio;
+    position: relative;
+    text-decoration: none;
+
+    &.freccia {
+      &::after {
+        color: $arancio;
+        content: '>';
+        display: block;
+        position: absolute;
+        right: -15px;
+        top: -1px;
+      }
+    }
+  }
+
+
 
   .verde {
     color: $verde;
@@ -50,7 +70,23 @@ body {
 
   div.bg {
     background-color: #343a40 !important;
+    text-align: center;
     padding: 10px;
+
+    @media screen and (min-width: 768px) {
+      text-align: left;
+    }
+  }
+
+  .totale {
+    stroke-width: 2;
+    font-size: 60px;
+    line-height: normal;
+
+    @media screen and (min-width: 768px) {
+      font-size: 35px;
+    }
+
   }
 
   div.sub {

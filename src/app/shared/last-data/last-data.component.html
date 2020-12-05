@@ -1,8 +1,8 @@
 <div class="col-md-12 bg" *ngIf="dati">
   <div>
     <p>{{titolo}}</p>
-    <p>
-      <span ngClass="{{class}}" >{{totale}}</span>
+    <p class="text-right pr-3">
+      <span class="totale" ngClass="{{class}}" >{{totale}}</span>
     </p>
   </div>
   <div class="sub">
@@ -12,9 +12,6 @@
     <p class="dato">
       <span>
         {{incremento}}
-        <!-- span style="font-size: small;">
-          ({{diffIncremento}})
-        </span -->
       </span>
     </p>
   </div>

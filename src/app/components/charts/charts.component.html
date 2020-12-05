@@ -3,7 +3,7 @@
 </div>
 <div class="container-fluid pt-3 pb-3" *ngIf="!wait">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-12 col-xl-8 mb-3">
       <div class="col-md-12 bg">
         <h3>Andamento Ultimi 30 giorni</h3>
         <h2>{{title}}</h2>
@@ -18,14 +18,19 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="btn-group col-md-6 mb-3" role="group" aria-label="Basic example">
+    <div class="col-12 col-xl-4">
+
+      <div class="btn-group col-12 col-md-6 mb-3 p-0" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-secondary col-md-6" [disabled]="kind" (click)="setKind(true)">Totali</button>
         <button type="button" class="btn btn-secondary col-md-6" [disabled]="!kind" (click)="setKind(false)">Incrementi</button>
       </div>
-      <div class="col-md-12 scroll">
-        <button type="button" class="btn btn-light col-md-5 mb-3 d-block ml-2 text-success" (click)="getItalia()">ITALIA</button>
-        <button type="button" class="btn btn-light col-md-5 mb-3 ml-2" *ngFor="let item of regioni" (click)="getRegione(item)">{{item}}</button>
+      <div class="col-12"><!--  d-block ml-2 -->
+        <button type="button" class="btn btn-success col-12 col-md-5" (click)="getItalia()">ITALIA</button>
+        <div class="row">
+          <div class="col-6 col-md-4 col-lg-3 col-xl-4 p-1" *ngFor="let item of regioni">
+            <button type="button" class="btn btn-secondary col-12" (click)="getRegione(item)">{{item}}</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

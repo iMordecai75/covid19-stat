@@ -26,6 +26,7 @@ import { ChartsComponent } from './components/charts/charts.component';
 import { ChartsModule } from 'ng2-charts';
 import { MatButtonModule } from '@angular/material/button';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FooterComponent,
     SpinnerComponent,
     DatepickerComponent,
-    ChartsComponent
+    ChartsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

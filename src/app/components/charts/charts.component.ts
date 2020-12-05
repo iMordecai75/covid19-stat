@@ -5,6 +5,7 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { DatiService } from 'src/app/services/dati.service';
 import { Dati } from 'src/app/models/dati';
 import { Regioni } from 'src/app/models/regioni';
+import { Annotations } from 'src/app/models/annotations';
 
 @Component({
   selector: 'app-charts',
@@ -61,6 +62,19 @@ export class ChartsComponent implements OnInit, OnChanges {
             content: 'DPCM - 03/11'
           }
         },
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: '03/12',
+          borderColor: 'black',
+          borderWidth: 2,
+          label: {
+            enabled: true,
+            fontColor: 'orange',
+            content: 'DPCM - 03/12'
+          }
+        },
       ],
     },
   };
@@ -101,6 +115,7 @@ export class ChartsComponent implements OnInit, OnChanges {
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
   dati: Dati[];
   datireg: Regioni[];
+  date: Date;
 
   constructor(private datiService: DatiService) { }
 
@@ -132,9 +147,31 @@ export class ChartsComponent implements OnInit, OnChanges {
     this.datiService.getDatiReg()
       .subscribe((res: Regioni[]) => {
         this.regioni = res.map(t => t.denominazione_regione);
-        this.wait = false;
+        this.datiService.getDate().subscribe((d) => {
+          this.date = d;
+          const newdata = this.dati.filter(
+            t => t.data.slice(0, 10) <= d.toISOString().slice(0, 10)
+          );
+          const max = newdata.length;
+          this.lineChartLabels = newdata.map(
+            t => new Date(t.data).toLocaleDateString()
+              .padStart(10, '0')
+              .substr(0, 5)).filter((elem, index) => index > max - 30
+              );
+          this.updateDataset(newdata);
+        });
+
+        this.getAnnotations();
       });
 
+  }
+
+  private getAnnotations(): void {
+    this.datiService.getAnnotation()
+      .subscribe((res: Annotations[]) => {
+        this.lineChartOptions.annotation.annotations = res;
+        this.wait = false;
+       });
   }
 
   private updateDataset(res: any): void {

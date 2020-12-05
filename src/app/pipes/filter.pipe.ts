@@ -12,6 +12,6 @@ export class FilterPipe implements PipeTransform {
     // filter items array, items which match and return true will be
     // kept, false will be filtered out
     // return items.filter(item => item[filter['field']].indexOf(filter['value']) !== -1);
-    return items.filter(item => item.sigla_provincia !== '');
+    return items.filter(item => item.sigla_provincia !== null);
   }
 }
