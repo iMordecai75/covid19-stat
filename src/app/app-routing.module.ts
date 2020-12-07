@@ -11,7 +11,9 @@ const routes: Routes = [
   { path: 'charts', component: ChartsComponent },
   { path: 'regione/:id', component: RegDetailComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'logout', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard/annotazioni', component: DashboardComponent }
 ];
 
 @NgModule({

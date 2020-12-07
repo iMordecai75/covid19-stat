@@ -17,9 +17,12 @@
         <a class="nav-link" [routerLink]="['/charts']" routerLinkActive="router-link-active">Grafici</a>
       </li>
       <li *ngIf="!this.auth.notExpired(); else logout" class="nav-item">
-        <a class="nav-link" routerLink="login">Login <i class="fa fa-lock"></i></a>
+        <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login <i class="fa fa-lock"></i></a>
       </li>
       <ng-template #logout>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >Dashboard</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="logout">Logout <i class="fa fa-unlock"></i></a>
         </li>

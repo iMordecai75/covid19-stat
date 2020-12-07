@@ -28,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AnnotationsComponent } from './components/annotations/annotations.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     DatepickerComponent,
     ChartsComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    AnnotationsComponent
   ],
   imports: [
     BrowserModule,

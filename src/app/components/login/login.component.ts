@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Response } from 'src/app/models/response';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -22,8 +23,12 @@ export class LoginComponent implements OnInit {
   sendLogin(form: NgForm): void {
     this.auth.login(form)
       .subscribe(
-        res => {
-          this.router.navigateByUrl('dashboard');
+        (res: Response) => {
+          if (res.error) {
+            this.showerrmsg = res.msg;
+          } else {
+            this.router.navigateByUrl('dashboard');
+          }
         },
         error => {
           this.showerrmsg = error;

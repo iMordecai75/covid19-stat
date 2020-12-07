@@ -17,7 +17,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(datiForm: NgForm): Observable<string> {
+  login(datiForm: NgForm): Observable<Response> {
     const body = this.body(datiForm);
 
     return this.http.post<Response>(`${ApiUrl}`, body, { headers: this.options })
@@ -27,7 +27,7 @@ export class AuthService {
             this.setSession(res.User_sToken);
           }
 
-          return res.User_sToken;
+          return res;
         }),
         catchError(this.errorHandler)
       );
@@ -48,7 +48,7 @@ export class AuthService {
       notExpired = new Date().getTime() < expire;
 
       if (notExpired) {
-        expire = new Date().getTime() + 10000;
+        expire = new Date().getTime() + 60000;
 
         localStorage.setItem('expire', expire.toString());
       }
