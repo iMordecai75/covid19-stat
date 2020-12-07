@@ -5,9 +5,9 @@ import { Dati } from '../models/dati';
 import { Province } from '../models/province';
 import { Regioni } from '../models/regioni';
 import { Annotations } from '../models/annotations';
+import { environment } from 'src/environments/environment';
 
-// const API = 'https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json';
-const API = 'http://www.federicomasci.com/angular/covid19/api';
+const API = environment.url;
 
 
 @Injectable({
@@ -16,7 +16,6 @@ const API = 'http://www.federicomasci.com/angular/covid19/api';
 export class DatiService {
 
   dati: Dati[];
-  // date: Date;
   observer = new BehaviorSubject<Date>(new Date());
   date = this.observer.asObservable();
 
@@ -50,7 +49,7 @@ export class DatiService {
     return this.http.get<Province[]>(`${API}/province?task=latest`);
   }
 
-  getAnnotation(): Observable<Annotations[]> {
+  getAnnotations(): Observable<Annotations[]> {
     return this.http.get<Annotations[]>(`${API}/annotations.php`);
   }
 

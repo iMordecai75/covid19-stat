@@ -29,6 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AnnotationsComponent } from './components/annotations/annotations.component';
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
+import { AnnotationFormComponent } from './components/annotation-form/annotation-form.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { AnnotationsComponent } from './components/annotations/annotations.compo
     ChartsComponent,
     LoginComponent,
     DashboardComponent,
-    AnnotationsComponent
+    AnnotationsComponent,
+    ToolbarComponent,
+    AnnotationFormComponent
   ],
   imports: [
     BrowserModule,

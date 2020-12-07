@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:8888/angular/covid19/api/',
-  authurl: 'http://localhost:8888/angular/covid19/api/auth/'
+  url: 'http://localhost:8888/angular/covid19/api',
+  authurl: 'http://localhost:8888/angular/covid19/api/auth'
 };
 
 /*

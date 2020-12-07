@@ -1,0 +1,17 @@
+<h1 class="text-center">Annotazioni</h1>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Etichetta</th>
+      <th scope="col">Valore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of annotations">
+      <th scope="row">{{item.id}}</th>
+      <td>{{item.label.content}}</td>
+      <td>{{item.value}}</td>
+    </tr>
+  </tbody>
+</table>

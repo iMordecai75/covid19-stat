@@ -20,7 +20,7 @@ export class AuthService {
   login(datiForm: NgForm): Observable<Response> {
     const body = this.body(datiForm);
 
-    return this.http.post<Response>(`${ApiUrl}`, body, { headers: this.options })
+    return this.http.post<Response>(`${ApiUrl}/`, body, { headers: this.options })
       .pipe(
         map((res: Response) => {
           if (res.User_sToken) {

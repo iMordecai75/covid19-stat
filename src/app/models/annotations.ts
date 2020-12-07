@@ -5,6 +5,7 @@ export interface Label {
 }
 
 export interface Annotations {
+  id: number;
   type: string;
   mode: string;
   scaleID: string;
