@@ -1,1 +1,49 @@
+<div class="row h-100">
+  <div class="container my-auto">
+    <div *ngIf="showerrmsg" class="row">
+      <!-- MESSAGGIO DI ERRORE-->
+      <div class="col-6 mx-auto alert alert-danger text-center">
+        <p>{{showerrmsg}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <form novalidate #f="ngForm" (submit)="sendLogin(f)" method="post" class="col-12 col-md-8 col-lg-6 col-xl-4 mx-auto">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+        <div class="col-12 p-2">
+          <div class="row mt-2">
+            <div class="col-12 mb-3">
+              <input class="form-control"
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  #username="ngModel"
+                  [(ngModel)]="modelusername"
+                  required>
+              <span class="star"></span>
+            </div>
+            <div class="col-12 mb-3">
+              <input class="form-control"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  #password="ngModel"
+                  [(ngModel)]="modelpassword"
+                  required
+                  >
+              <span class="star"></span>
+            </div>
+            <div class="col-4 ml-auto mr-auto mb-3">
+              <button
+                  type="submit"
+                  class="btn btn-primary col-12"
+                  [disabled]='f.invalid'>
+                  Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
+</div>

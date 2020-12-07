@@ -27,6 +27,7 @@ import { ChartsModule } from 'ng2-charts';
 import { MatButtonModule } from '@angular/material/button';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { LoginComponent } from './components/login/login.component';
     SpinnerComponent,
     DatepickerComponent,
     ChartsComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  modelpassword: string;
+  modelusername: string;
+  showerrmsg: string;
+
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
+
+  sendLogin(form: NgForm): void {
+    this.auth.login(form)
+      .subscribe(
+        res => {
+          this.router.navigateByUrl('dashboard');
+        },
+        error => {
+          this.showerrmsg = error;
+        }
+      );
+  }
 
   ngOnInit(): void {
+    this.auth.logout();
   }
 
 }
