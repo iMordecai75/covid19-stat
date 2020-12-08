@@ -19,7 +19,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   { path: 'dashboard', component: DashboardComponent, canActivate: [LoginGuard] },
-  { path: 'dashboard/:component', component: DashboardComponent, canActivate: [LoginGuard] }
+  { path: 'dashboard/:component', component: DashboardComponent, canActivate: [LoginGuard] },
+  { path: 'dashboard/:component/:id', component: DashboardComponent, canActivate: [LoginGuard] }
 ];
 
 @NgModule({

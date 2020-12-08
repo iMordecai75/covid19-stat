@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AnnotationBk } from '../models/annotation-bk';
 import { Annotations } from '../models/annotations';
 
 const API = environment.url;
@@ -13,23 +14,22 @@ const API = environment.url;
 })
 export class DashboardService {
 
-  private options: HttpHeaders = new HttpHeaders();
+  private options: HttpHeaders = new HttpHeaders().set('content-type', 'application/x-www-form-urlencoded');
 
   constructor(private http: HttpClient) { }
 
-  getAnnotations(): Observable<Annotations[]> {
-    return this.http.get<Annotations[]>(`${API}/annotations.php`);
+  getAnnotations(): Observable<AnnotationBk[]> {
+    return this.http.get<AnnotationBk[]>(`${API}/annotations.php?task=backend`);
   }
 
-  postAnnotation(datiForm: NgForm): Observable<Annotations> {
+  postAnnotation(datiForm: NgForm): Observable<AnnotationBk> {
     const body = this.body(datiForm);
     const token = localStorage.getItem('token');
-    this.options.set('content-type', 'application/x-www-form-urlencoded');
-    this.options.set('Authorization', 'Bearer ' + token);
+    const options = this.options.append('Authorization', 'Bearer ' + token);
 
-    return this.http.post<Annotations>(`${API}/annotations.php`, body, { headers: this.options })
+    return this.http.post<AnnotationBk>(`${API}/annotations.php`, body, { headers: options })
       .pipe(
-        map((res: Annotations) => {
+        map((res: AnnotationBk) => {
           return res;
         }),
         catchError(this.errorHandler)

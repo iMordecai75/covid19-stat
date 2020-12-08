@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Annotations } from 'src/app/models/annotations';
+import { AnnotationBk } from 'src/app/models/annotation-bk';
 import { AuthService } from 'src/app/services/auth.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
@@ -12,7 +11,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 })
 export class AnnotationsComponent implements OnInit {
 
-  annotations: Annotations[];
+  annotations: AnnotationBk[];
 
   constructor(
     private auth: AuthService,
@@ -20,8 +19,8 @@ export class AnnotationsComponent implements OnInit {
     private router: Router
   ) { }
 
-  sendAnnotation(form: NgForm) {
-
+  newAnnotation(): void {
+    this.router.navigateByUrl('/dashboard/annotazione/0');
   }
 
   ngOnInit(): void {
@@ -29,7 +28,7 @@ export class AnnotationsComponent implements OnInit {
       this.router.navigateByUrl('login');
     } else {
       this.dashboard.getAnnotations()
-        .subscribe((res: Annotations[]) => {
+        .subscribe((res: AnnotationBk[]) => {
           this.annotations = res;
         });
     }

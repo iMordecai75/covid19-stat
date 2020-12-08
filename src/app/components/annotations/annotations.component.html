@@ -1,17 +1,27 @@
 <h1 class="text-center">Annotazioni</h1>
-<table class="table table-striped">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Etichetta</th>
-      <th scope="col">Valore</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of annotations">
-      <th scope="row">{{item.id}}</th>
-      <td>{{item.label.content}}</td>
-      <td>{{item.value}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="row p-3 bg-light border border-secondary">
+  <div class="col-2">
+    <button type="button" class="btn btn-success" (click)="newAnnotation()">
+      Nuovo <i class="fa fa-plus"></i>
+    </button>
+  </div>
+</div>
+<div class="row px-3 mt-1">
+  <table class="col-12 table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Etichetta</th>
+        <th scope="col">Valore</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of annotations">
+        <th scope="row">{{item.Annotation_iId}}</th>
+        <td>{{item.Annotation_sContent}}</td>
+        <td>{{item.Annotation_sValue}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
