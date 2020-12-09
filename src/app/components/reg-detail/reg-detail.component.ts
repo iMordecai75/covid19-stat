@@ -29,16 +29,17 @@ export class RegDetailComponent implements OnInit {
 
   getDetailReg(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.datiService.getAllDatiReg()
+    this.datiService.getDatiReg()
       .subscribe(res => {
-        this.regioni = res.filter(t => t.denominazione_regione === this.id);
+        const items = res.items as Regioni[];
+        this.regioni = items.filter(t => t.denominazione_regione === this.id);
         this.getDetailProvReg();
       });
   }
 
   getDetailProvReg(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.datiService.getAllDatiProv()
+    this.datiService.getDatiProv()
       .subscribe(res => {
         this.province = res.filter(t => t.denominazione_regione === this.id);
         this.datiService.getDate().subscribe((d: Date) => {

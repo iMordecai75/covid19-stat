@@ -27,26 +27,25 @@ export class DatiService {
     return this.http.get<ApiResponse>(`${API}/index.php`);
   }
 
-  getAllDatiReg(): Observable<Regioni[]> {
-    return this.http.get<Regioni[]>(`${API}/regioni.php`);
-  }
-
-  getAllDatiProv(): Observable<Province[]> {
-    return this.http.get<Province[]>(`${API}/province.php`);
-  }
-
-  // LETTURA ULTIMI DATI NAZIONALI
   getLatestDati(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${API}/index.php?task=latest`);
   }
 
   // LETTURA DATI REGIONALI
-  getDatiReg(): Observable<Regioni[]> {
-    return this.http.get<Regioni[]>(`${API}/regioni.php?task=latest`);
+  getDatiReg(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${API}/regioni.php`);
+  }
+
+  getLatestDatiReg(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${API}/regioni.php?task=latest`);
   }
 
   // LETTURA DATI PROVINCIALI
   getDatiProv(): Observable<Province[]> {
+    return this.http.get<Province[]>(`${API}/province.php`);
+  }
+
+  getLatestDatiProv(): Observable<Province[]> {
     return this.http.get<Province[]>(`${API}/province?task=latest`);
   }
 

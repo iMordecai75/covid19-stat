@@ -35,15 +35,15 @@ export class HomeComponent implements OnInit {
   }
 
   getDatiReg(): void {
-    this.datiService.getAllDatiReg()
-      .subscribe((res: Regioni[]) => {
-        this.regioni = res;
+    this.datiService.getDatiReg()
+      .subscribe((res: ApiResponse) => {
+        this.regioni = res.items as Regioni[];
         this.getDatiProv();
       });
   }
 
   getDatiProv(): void {
-    this.datiService.getAllDatiProv()
+    this.datiService.getDatiProv()
       .subscribe((res: Province[]) => {
         this.province = res;
         this.datiService.getDate().subscribe((d) => {
