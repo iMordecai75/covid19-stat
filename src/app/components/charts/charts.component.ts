@@ -6,6 +6,7 @@ import { DatiService } from 'src/app/services/dati.service';
 import { Dati } from 'src/app/models/dati';
 import { Regioni } from 'src/app/models/regioni';
 import { Annotations } from 'src/app/models/annotations';
+import { ApiResponse } from 'src/app/models/api-response';
 
 @Component({
   selector: 'app-charts',
@@ -129,10 +130,10 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   private getDati(): void {
     this.datiService.getDati()
-      .subscribe((res: Dati[]) => {
-        this.dati = res;
-        const max = res.length;
-        this.lineChartLabels = res.map(
+      .subscribe((res: ApiResponse) => {
+        this.dati = res.items as Dati[];
+        const max = this.dati.length;
+        this.lineChartLabels = this.dati.map(
           t => new Date(t.data).toLocaleDateString()
             .padStart(10, '0')
             .substr(0, 5)).filter((elem, index) => index > max - 30
@@ -145,8 +146,9 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   private getRegioni(): void {
     this.datiService.getDatiReg()
-      .subscribe((res: Regioni[]) => {
-        this.regioni = res.map(t => t.denominazione_regione);
+      .subscribe((res: ApiResponse) => {
+        const items = res.items as Regioni[];
+        this.regioni = items.map(t => t.denominazione_regione);
         this.datiService.getDate().subscribe((d) => {
           this.date = d;
           const newdata = this.dati.filter(
@@ -206,9 +208,10 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   public getRegione(id: string): void {
     if (!this.datireg) {
-      this.datiService.getAllDatiReg()
-        .subscribe((res: Regioni[]) => {
-          const reg: Regioni[] = res.filter(t => t.denominazione_regione === id);
+      this.datiService.getDatiReg()
+        .subscribe((res: ApiResponse) => {
+          const items = res.items as Regioni[];
+          const reg: Regioni[] = items.filter(t => t.denominazione_regione === id);
           this.updateDataset(reg);
           this.title = id;
         });
