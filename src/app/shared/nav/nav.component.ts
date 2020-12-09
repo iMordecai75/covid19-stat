@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiResponse } from 'src/app/models/api-response';
 import { Dati } from 'src/app/models/dati';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatiService } from 'src/app/services/dati.service';
@@ -20,8 +21,9 @@ export class NavComponent implements OnInit {
 
   getLatestData(): void {
     this.service.getLatestDati()
-      .subscribe((res: Dati[]) => {
-        const sdata = res[0].data;
+      .subscribe((res: ApiResponse) => {
+        const items: Dati[] = res.items as Dati[];
+        const sdata = items[0].data;
         this.date = new Date(sdata);
         this.service.setDate(this.date);
       });

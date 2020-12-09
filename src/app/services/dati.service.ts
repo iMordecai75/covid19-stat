@@ -6,6 +6,7 @@ import { Province } from '../models/province';
 import { Regioni } from '../models/regioni';
 import { Annotations } from '../models/annotations';
 import { environment } from 'src/environments/environment';
+import { ApiResponse } from '../models/api-response';
 
 const API = environment.url;
 
@@ -22,8 +23,8 @@ export class DatiService {
   constructor(private http: HttpClient) { }
 
   // LETTURA DATI NAZIONALI
-  getDati(): Observable<Dati[]> {
-    return this.http.get<Dati[]>(`${API}/index.php`);
+  getDati(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${API}/index.php`);
   }
 
   getAllDatiReg(): Observable<Regioni[]> {
@@ -35,8 +36,8 @@ export class DatiService {
   }
 
   // LETTURA ULTIMI DATI NAZIONALI
-  getLatestDati(): Observable<Dati[]> {
-    return this.http.get<Dati[]>(`${API}/index.php?task=latest`);
+  getLatestDati(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${API}/index.php?task=latest`);
   }
 
   // LETTURA DATI REGIONALI

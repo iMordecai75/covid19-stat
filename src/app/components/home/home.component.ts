@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiResponse } from 'src/app/models/api-response';
 import { Dati } from 'src/app/models/dati';
 import { Province } from 'src/app/models/province';
 import { Regioni } from 'src/app/models/regioni';
@@ -25,9 +26,11 @@ export class HomeComponent implements OnInit {
 
   getDati(): void {
     this.datiService.getDati()
-      .subscribe((res: Dati[]) => {
-        this.dati = res;
-        this.getDatiReg();
+      .subscribe((res: ApiResponse) => {
+        if (res.status === 'OK') {
+          this.dati = res.items as Dati[];
+          this.getDatiReg();
+        }
       });
   }
 

@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AuthResponse } from '../models/response';
+import { AuthResponse } from '../models/auth-response';
 
 const ApiUrl = environment.authurl;
 
