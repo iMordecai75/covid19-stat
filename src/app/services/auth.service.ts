@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Response } from '../models/response';
+import { AuthResponse } from '../models/response';
 
 const ApiUrl = environment.authurl;
 
@@ -17,12 +17,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(datiForm: NgForm): Observable<Response> {
+  login(datiForm: NgForm): Observable<AuthResponse> {
     const body = this.body(datiForm);
 
-    return this.http.post<Response>(`${ApiUrl}/`, body, { headers: this.options })
+    return this.http.post<AuthResponse>(`${ApiUrl}/`, body, { headers: this.options })
       .pipe(
-        map((res: Response) => {
+        map((res: AuthResponse) => {
           if (res.User_sToken) {
             this.setSession(res.User_sToken);
           }
