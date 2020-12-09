@@ -138,7 +138,7 @@ export class ChartsComponent implements OnInit, OnChanges {
             .padStart(10, '0')
             .substr(0, 5)).filter((elem, index) => index > max - 30
             );
-        this.updateDataset(res);
+        this.updateDataset(this.dati);
         this.getRegioni();
         this.title = 'Italia';
       });
@@ -151,7 +151,7 @@ export class ChartsComponent implements OnInit, OnChanges {
         this.regioni = items.map(t => t.denominazione_regione);
         this.datiService.getDate().subscribe((d) => {
           this.date = d;
-          const newdata = this.dati.filter(
+          const newdata: Dati[] = this.dati.filter(
             t => t.data.slice(0, 10) <= d.toISOString().slice(0, 10)
           );
           const max = newdata.length;
@@ -176,20 +176,20 @@ export class ChartsComponent implements OnInit, OnChanges {
        });
   }
 
-  private updateDataset(res: any): void {
-    const max = res.length;
+  private updateDataset(data: any): void {
+    const max = data.length;
     if (this.kind) {
-      this.lineChartData[0].data = res.map(t => t.totale_positivi).filter((elem, index) => index > max - 30);
-      this.lineChartData[1].data = res.map(t => t.totale_casi).filter((elem, index) => index > max - 30);
-      this.lineChartData[2].data = res.map(t => t.dimessi_guariti).filter((elem, index) => index > max - 30);
+      this.lineChartData[0].data = data.map(t => t.totale_positivi).filter((elem, index) => index > max - 30);
+      this.lineChartData[1].data = data.map(t => t.totale_casi).filter((elem, index) => index > max - 30);
+      this.lineChartData[2].data = data.map(t => t.dimessi_guariti).filter((elem, index) => index > max - 30);
     } else {
-      this.lineChartData[0].data = res.map(t => t.variazione_totale_positivi).filter((elem, index) => index > max - 30);
-      this.lineChartData[1].data = res.map(t => t.nuovi_positivi).filter((elem, index) => index > max - 30);
-      this.lineChartData[2].data = res.map((t, i) => {
+      this.lineChartData[0].data = data.map(t => t.variazione_totale_positivi).filter((elem, index) => index > max - 30);
+      this.lineChartData[1].data = data.map(t => t.nuovi_positivi).filter((elem, index) => index > max - 30);
+      this.lineChartData[2].data = data.map((t, i) => {
         if (i === 0) {
           return 0;
         } else {
-          return t.dimessi_guariti - res[i - 1].dimessi_guariti;
+          return t.dimessi_guariti - data[i - 1].dimessi_guariti;
         }
       }).filter((elem, index) => index > max - 30);
     }
