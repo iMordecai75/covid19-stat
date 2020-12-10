@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Dati } from '../models/dati';
-import { Province } from '../models/province';
-import { Regioni } from '../models/regioni';
 import { Annotations } from '../models/annotations';
 import { environment } from 'src/environments/environment';
 import { ApiResponse } from '../models/api-response';
@@ -41,12 +39,12 @@ export class DatiService {
   }
 
   // LETTURA DATI PROVINCIALI
-  getDatiProv(): Observable<Province[]> {
-    return this.http.get<Province[]>(`${API}/province.php`);
+  getDatiProv(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${API}/province.php`);
   }
 
-  getLatestDatiProv(): Observable<Province[]> {
-    return this.http.get<Province[]>(`${API}/province?task=latest`);
+  getLatestDatiProv(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${API}/province?task=latest`);
   }
 
   getAnnotations(): Observable<Annotations[]> {

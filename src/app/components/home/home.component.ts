@@ -44,8 +44,8 @@ export class HomeComponent implements OnInit {
 
   getDatiProv(): void {
     this.datiService.getDatiProv()
-      .subscribe((res: Province[]) => {
-        this.province = res;
+      .subscribe((res: ApiResponse) => {
+        this.province = res.items as Province[];
         this.datiService.getDate().subscribe((d) => {
           this.date = d;
           // this.filterdata = this.dati.filter(t => t.data.slice(0, 10) === date.slice(0, 10));
