@@ -21,7 +21,10 @@
           <th scope="row">{{item.Annotation_iId}}</th>
           <td>{{item.Annotation_sContent}}</td>
           <td>{{item.Annotation_sValue}}</td>
-          <td><i class="fa fa-edit big" [routerLink]="['/dashboard/annotazione', item.Annotation_iId]"></i></td>
+          <td class="text-right">
+            <i class="fa fa-edit big arancio mr-2" [routerLink]="['/dashboard/annotazione', item.Annotation_iId]"></i>
+            <i class="fa fa-trash big rosso" (click)="delAnnotation(item.Annotation_iId)"></i>
+          </td>
         </tr>
       </tbody>
     </table>

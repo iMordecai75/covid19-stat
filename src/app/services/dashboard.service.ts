@@ -57,6 +57,14 @@ export class DashboardService {
       );
   }
 
+  delAnnotation(id): Observable<ApiResponse> {
+    const params = new HttpParams().set('Annotation_iId', id);
+    const token = localStorage.getItem('token');
+    const options = this.headers(token);
+
+    return this.http.delete<ApiResponse>(`${API}/annotations.php?id=${id}`, { headers: options });
+  }
+
   errorHandler(error: any): Observable<never> {
     console.log(error);
     let msg: string;

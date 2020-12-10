@@ -24,14 +24,28 @@ export class AnnotationsComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/annotazione/0');
   }
 
+  delAnnotation(id): void {
+    this.dashboard.delAnnotation(id)
+      .subscribe((res: ApiResponse) => {
+        if (res.status === 'OK') {
+          this.getAnnotations();
+        }
+       });
+  }
+
+  getAnnotations(): void {
+    this.dashboard.getAnnotations()
+      .subscribe((res: ApiResponse) => {
+        this.annotations = res.items as AnnotationBk[];
+      });
+
+  }
+
   ngOnInit(): void {
     if (!this.auth.notExpired()) {
       this.router.navigateByUrl('login');
     } else {
-      this.dashboard.getAnnotations()
-        .subscribe((res: ApiResponse) => {
-          this.annotations = res.items as AnnotationBk[];
-        });
+      this.getAnnotations();
     }
   }
 
