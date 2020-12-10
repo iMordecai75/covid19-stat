@@ -4,8 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AnnotationBk } from '../models/annotation-bk';
-import { Annotations } from '../models/annotations';
+import { ApiResponse } from '../models/api-response';
 
 const API = environment.url;
 
@@ -18,18 +17,18 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
-  getAnnotations(): Observable<AnnotationBk[]> {
-    return this.http.get<AnnotationBk[]>(`${API}/annotations.php?task=backend`);
+  getAnnotations(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${API}/annotations.php?task=backend`);
   }
 
-  postAnnotation(datiForm: NgForm): Observable<AnnotationBk> {
+  postAnnotation(datiForm: NgForm): Observable<ApiResponse> {
     const body = this.body(datiForm);
     const token = localStorage.getItem('token');
     const options = this.options.append('Authorization', 'Bearer ' + token);
 
-    return this.http.post<AnnotationBk>(`${API}/annotations.php`, body, { headers: options })
+    return this.http.post<ApiResponse>(`${API}/annotations.php`, body, { headers: options })
       .pipe(
-        map((res: AnnotationBk) => {
+        map((res: ApiResponse) => {
           return res;
         }),
         catchError(this.errorHandler)

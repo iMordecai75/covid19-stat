@@ -170,8 +170,8 @@ export class ChartsComponent implements OnInit, OnChanges {
 
   private getAnnotations(): void {
     this.datiService.getAnnotations()
-      .subscribe((res: Annotations[]) => {
-        this.lineChartOptions.annotation.annotations = res;
+      .subscribe((res: ApiResponse) => {
+        this.lineChartOptions.annotation.annotations = res.items;
         this.wait = false;
        });
   }

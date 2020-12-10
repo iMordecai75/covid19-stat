@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Dati } from '../models/dati';
-import { Annotations } from '../models/annotations';
 import { environment } from 'src/environments/environment';
 import { ApiResponse } from '../models/api-response';
 
@@ -47,8 +46,8 @@ export class DatiService {
     return this.http.get<ApiResponse>(`${API}/province?task=latest`);
   }
 
-  getAnnotations(): Observable<Annotations[]> {
-    return this.http.get<Annotations[]>(`${API}/annotations.php`);
+  getAnnotations(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${API}/annotations.php`);
   }
 
   getDate(): Observable<Date> {

@@ -22,7 +22,11 @@ export class AnnotationFormComponent implements OnInit {
 
   sendAnnotation(form: NgForm): void {
     this.dashboard.postAnnotation(form)
-      .subscribe(res => { });
+      .subscribe(res => {
+        if (res.status === 'OK') {
+          this.router.navigateByUrl('/dashboard/annotazioni');
+        }
+       });
   }
 
   ngOnInit(): void {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnnotationBk } from 'src/app/models/annotation-bk';
+import { ApiResponse } from 'src/app/models/api-response';
 import { AuthService } from 'src/app/services/auth.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
@@ -28,8 +29,8 @@ export class AnnotationsComponent implements OnInit {
       this.router.navigateByUrl('login');
     } else {
       this.dashboard.getAnnotations()
-        .subscribe((res: AnnotationBk[]) => {
-          this.annotations = res;
+        .subscribe((res: ApiResponse) => {
+          this.annotations = res.items as AnnotationBk[];
         });
     }
   }
