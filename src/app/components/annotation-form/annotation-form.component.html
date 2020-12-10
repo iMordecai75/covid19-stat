@@ -1,11 +1,14 @@
 <h1 class="text-center">Nuova Annotazione</h1>
 <div class="row p-3 bg-light border border-secondary">
-    <div class="col-2">
-      <button type="button" class="btn btn-success" [disabled]="fa.invalid" (click)="sendAnnotation(fa)">Salva</button>
+    <div class="col-12">
+      <button type="button" class="btn btn-success mr-3" [disabled]="fa.invalid" (click)="sendAnnotation(fa, true)">Salva</button>
+      <button type="button" class="btn btn-primary mr-3" [disabled]="fa.invalid"
+        (click)="sendAnnotation(fa, false)">Applica</button>
     </div>
 </div>
 <div class="row px-3 mt-1">
   <form #fa="ngForm" class="mt-5">
+    <input type="hidden" name="Annotations_iId" #id="ngModel" [(ngModel)]="modelid">
     <div class="form-group">
       <input type="text" class="form-control" name="Annotation_sContent" placeholder="Etichetta" #content="ngModel"
         [(ngModel)]="modelcontent">
