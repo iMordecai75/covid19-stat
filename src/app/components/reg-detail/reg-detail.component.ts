@@ -4,6 +4,7 @@ import { Province } from 'src/app/models/province';
 import { Regioni } from 'src/app/models/regioni';
 import { DatiService } from 'src/app/services/dati.service';
 import { Location } from '@angular/common';
+import { ApiResponse } from 'src/app/models/api-response';
 
 @Component({
   selector: 'app-reg-detail',
@@ -40,8 +41,9 @@ export class RegDetailComponent implements OnInit {
   getDetailProvReg(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.datiService.getDatiProv()
-      .subscribe(res => {
-        this.province = res.filter(t => t.denominazione_regione === this.id);
+      .subscribe((res: ApiResponse) => {
+        const items = res.items as Province[];
+        this.province = items.filter(t => t.denominazione_regione === this.id);
         this.datiService.getDate().subscribe((d: Date) => {
           const date2: string = new Date(d.getTime() - (1 * 24 * 60 * 60 * 1000)).toISOString().slice(0, 10);
           // this.filterreg = this.regioni.filter(t => t.data.slice(0, 10) === d.toISOString().slice(0, 10));

@@ -33,9 +33,21 @@ export class AuthService {
       );
   }
 
-  logout(): void {
+  logout(): Observable<AuthResponse> {
+    const token = localStorage.getItem('token');
+    const options = this.headers(token);
+
     localStorage.removeItem('token');
     localStorage.removeItem('expire');
+
+    return this.http.patch<AuthResponse>(`${ApiUrl}/`, { headers: options })
+      .pipe(
+        map((res: AuthResponse) => {
+          return res;
+        }),
+        catchError(this.errorHandler)
+      );
+
   }
 
   notExpired(): boolean {
@@ -51,6 +63,8 @@ export class AuthService {
         expire = new Date().getTime() + 60000;
 
         localStorage.setItem('expire', expire.toString());
+      } else {
+        this.logout();
       }
     }
 
@@ -88,5 +102,11 @@ export class AuthService {
     return params;
   }
 
+  private headers(token: string): HttpHeaders {
+    const headers: HttpHeaders = new HttpHeaders()
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .set('Authorization', 'Bearer ' + token);
 
+    return headers;
+  }
 }

@@ -24,8 +24,8 @@ export class AnnotationFormComponent implements OnInit {
   ) { }
 
   sendAnnotation(form: NgForm, close: boolean): void {
-    if (form.value.Annotation_iId === 0) {
-      this.dashboard.postAnnotation(form)
+    if (parseInt(form.value.Annotation_iId, 10) > 0) {
+      this.dashboard.putAnnotation(form)
         .subscribe(res => {
           if (res.status === 'OK') {
             if (close) {
@@ -37,7 +37,7 @@ export class AnnotationFormComponent implements OnInit {
           }
         });
     } else {
-      this.dashboard.putAnnotation(form)
+      this.dashboard.postAnnotation(form)
         .subscribe(res => {
           if (res.status === 'OK') {
             if (close) {
@@ -60,6 +60,10 @@ export class AnnotationFormComponent implements OnInit {
       });
   }
 
+  close(): void {
+    this.router.navigateByUrl('/dashboard/annotazioni');
+  }
+
   ngOnInit(): void {
     if (!this.auth.notExpired()) {
       this.router.navigateByUrl('login');
@@ -68,6 +72,8 @@ export class AnnotationFormComponent implements OnInit {
       console.log('id', id);
       if (id > 0) {
         this.getAnnotation(id);
+      } else {
+        this.modelid = 0;
       }
     }
   }

@@ -1,12 +1,12 @@
-import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { DatiService } from 'src/app/services/dati.service';
 import { Dati } from 'src/app/models/dati';
 import { Regioni } from 'src/app/models/regioni';
-import { Annotations } from 'src/app/models/annotations';
 import { ApiResponse } from 'src/app/models/api-response';
+import { Annotations } from 'src/app/models/annotations';
 
 @Component({
   selector: 'app-charts',
@@ -14,7 +14,7 @@ import { ApiResponse } from 'src/app/models/api-response';
   styleUrls: ['./charts.component.scss']
 })
 
-export class ChartsComponent implements OnInit, OnChanges {
+export class ChartsComponent implements OnInit {
 
   public lineChartData: ChartDataSets[] = [
     { data: [], label: 'Positivi' },
@@ -112,71 +112,69 @@ export class ChartsComponent implements OnInit, OnChanges {
   public regioni: string[];
   public title: string;
   public kind = true;
+  public dati: Dati[];
+  public datireg: Regioni[];
+  public annotations: Annotations[];
+  public date: Date;
+  public region = 'italia';
+
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
-  dati: Dati[];
-  datireg: Regioni[];
-  date: Date;
 
   constructor(private datiService: DatiService) { }
 
   ngOnInit(): void {
+    this.title = 'Italia';
     this.getDati();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-
+  // Recupero i dati nazionali
   private getDati(): void {
     this.datiService.getDati()
       .subscribe((res: ApiResponse) => {
         this.dati = res.items as Dati[];
-        const max = this.dati.length;
-        this.lineChartLabels = this.dati.map(
-          t => new Date(t.data).toLocaleDateString()
-            .padStart(10, '0')
-            .substr(0, 5)).filter((elem, index) => index > max - 30
-            );
-        this.updateDataset(this.dati);
         this.getRegioni();
-        this.title = 'Italia';
       });
   }
-
+  // Recupero i dati regionali
   private getRegioni(): void {
     this.datiService.getDatiReg()
       .subscribe((res: ApiResponse) => {
-        const items = res.items as Regioni[];
-        this.regioni = items.map(t => t.denominazione_regione);
-        this.datiService.getDate().subscribe((d) => {
-          this.date = d;
-          const newdata: Dati[] = this.dati.filter(
-            t => t.data.slice(0, 10) <= d.toISOString().slice(0, 10)
-          );
-          const max = newdata.length;
-          this.lineChartLabels = newdata.map(
-            t => new Date(t.data).toLocaleDateString()
-              .padStart(10, '0')
-              .substr(0, 5)).filter((elem, index) => index > max - 30
-              );
-          this.updateDataset(newdata);
-        });
+        this.datireg = res.items as Regioni[];
+        this.regioni = this.datireg.map(t => t.denominazione_regione);
 
         this.getAnnotations();
       });
 
   }
-
+  // Recupero le annotazioni
   private getAnnotations(): void {
     this.datiService.getAnnotations()
       .subscribe((res: ApiResponse) => {
-        this.lineChartOptions.annotation.annotations = res.items;
-        this.wait = false;
+        this.annotations = res.items as Annotations[];
+        console.log(this.annotations);
+        //
+        this.datiService.getDate().subscribe((d) => {
+          this.date = d;
+          this.wait = false;
+          this.updateDataset();
+        });
        });
   }
 
-  private updateDataset(data: any): void {
+
+  private updateDataset(): void {
+    let data: any;
+    // Filtro i dati per data e regione
+    if (this.region === 'italia') {
+      data = this.dati.filter((t: Dati) => {
+        return new Date(t.data) <= this.date;
+      });
+    } else {
+      data = this.datireg
+        .filter((t: Regioni) => t.denominazione_regione === this.region)
+        .filter((t: Regioni) => new Date(t.data) <= this.date);
+    }
     const max = data.length;
     if (this.kind) {
       this.lineChartData[0].data = data.map(t => t.totale_positivi).filter((elem, index) => index > max - 30);
@@ -193,33 +191,31 @@ export class ChartsComponent implements OnInit, OnChanges {
         }
       }).filter((elem, index) => index > max - 30);
     }
-        // this.chart.update();
+    this.lineChartLabels = data.map(
+      t => {
+        const newd = new Date(t.data).toLocaleDateString();
+        const len = newd.length;
+        return newd.substr(0, len - 5);
+      }).filter((elem, index) => index > max - 30);
+
+    this.lineChartOptions.annotation.annotations = this.annotations;
   }
 
   public setKind(value): void {
     this.kind = value;
-    this.getItalia();
+    this.updateDataset();
   }
 
   public getItalia(): void {
-    this.updateDataset(this.dati);
     this.title = 'Italia';
+    this.region = 'italia';
+    this.updateDataset();
   }
 
   public getRegione(id: string): void {
-    if (!this.datireg) {
-      this.datiService.getDatiReg()
-        .subscribe((res: ApiResponse) => {
-          const items = res.items as Regioni[];
-          const reg: Regioni[] = items.filter(t => t.denominazione_regione === id);
-          this.updateDataset(reg);
-          this.title = id;
-        });
-    } else {
-      const reg: Regioni[] = this.datireg.filter(t => t.denominazione_regione === id);
-      this.updateDataset(reg);
-      this.title = id;
-    }
+    this.title = id;
+    this.region = id;
+    this.updateDataset();
   }
 
   // events
