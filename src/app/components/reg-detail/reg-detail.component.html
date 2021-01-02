@@ -13,18 +13,18 @@
   </span>
   <div class="row">
     <div class="col-md-3 cont">
-      <app-last-data [titolo]='"Attuali positivi"' [dati]='regioni' [date]="date" [class]='"totalePositivi"'
+      <app-last-data [titolo]='"Attuali positivi"' [dati]='regioni' [date]="date" [class]='"arancio"'
         [property]='"totale_positivi"'></app-last-data>
     </div>
     <div class="col-md-3 cont">
-      <app-last-data [titolo]='"Dimessi/Guariti"' [dati]='regioni' [date]="date" [class]='"guariti"' [property]='"dimessi_guariti"'>
+      <app-last-data [titolo]='"Dimessi/Guariti"' [dati]='regioni' [date]="date" [class]='"verde"' [property]='"dimessi_guariti"'>
       </app-last-data>
     </div>
     <div class="col-md-3 cont">
-      <app-last-data [titolo]='"Deceduti"' [dati]='regioni' [date]="date" [class]='"deceduti"' [property]='"deceduti"'></app-last-data>
+      <app-last-data [titolo]='"Deceduti"' [dati]='regioni' [date]="date" [class]='"grigio"' [property]='"deceduti"'></app-last-data>
     </div>
     <div class="col-md-3 cont">
-      <app-last-data [titolo]='"Totale casi"' [dati]='regioni' [date]="date" [class]='"totaleCasi"' [property]='"totale_casi"'>
+      <app-last-data [titolo]='"Totale casi"' [dati]='regioni' [date]="date" [class]='"rosso"' [property]='"totale_casi"'>
       </app-last-data>
     </div>
   </div>

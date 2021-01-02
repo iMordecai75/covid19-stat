@@ -141,7 +141,12 @@ export class ChartsComponent implements OnInit {
     this.datiService.getDatiReg()
       .subscribe((res: ApiResponse) => {
         this.datireg = res.items as Regioni[];
-        this.regioni = this.datireg.map(t => t.denominazione_regione);
+        this.regioni = this.datireg.map(
+          (item: Regioni) => item.denominazione_regione
+        ).filter((item: string, index: number, self: string[]) => {
+          return self.indexOf(item) === index
+        });
+
 
         this.getAnnotations();
       });
